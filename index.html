@@ -60,7 +60,7 @@
           <li><a class="nav-link scrollto" href="#about">Nos</a></li>
           <li><a class="nav-link scrollto" href="#services">Servicios</a></li>
           <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li>
-          <li><a class="nav-link scrollto" href="#team">Equipo</a></li>
+          <!-- <li><a class="nav-link scrollto" href="#team">Equipo</a></li> -->
           <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="/contacto.html">Contacto</a></li>
@@ -94,8 +94,8 @@
     <div class="container">
       <div class="row d-flex align-items-center"">
       <div class=" col-lg-6 py-5 py-lg-0 order-2 order-lg-1" data-aos="fade-right">
-        <h1>Testing de sitios web con variantes onboard</h1>
-        <h2>Sitios oneweb page estáticos</h2>
+        <h1>Querés tener tu sitio y presencia en Internet?</h1>
+        <h2>Comunicate con nosotros</h2>
         <a href="#about" class="btn-get-started scrollto">Ver más</a>
       </div>
       <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left">
@@ -163,29 +163,29 @@
           <div class="image col-xl-5"></div>
           <div class="col-xl-7">
             <div class="content d-flex flex-column justify-content-center ps-0 ps-xl-4">
-              <h3 data-aos="fade-in" data-aos-delay="100">Peluquería Canina a Domicilio en CABA</h3>
+              <h3 data-aos="fade-in" data-aos-delay="100">Creamos tu sitio desde cero</h3>
               <p data-aos="fade-in">
                 Ofrecemos un servicio profesional de peluquería canina a domicilio, diseñado para brindar comodidad a tu mascota y facilitar tu rutina diaria. Nuestro equipo especializado utiliza productos de alta calidad y técnicas avanzadas para garantizar un cuidado integral.
               </p>
               <div class="row gy-4 mt-3">
                 <div class="col-md-6 icon-box" data-aos="fade-up">
                   <i class="bx bx-receipt"></i>
-                  <h4><a href="https://peluqueriaparaperros.com.ar/" target="_blank">Corporis voluptates sit</a></h4>
+                  <h4><a href="https://peluqueriaparaperros.com.ar/" target="_blank">Diseño</a></h4>
                   <p>Brindamos atención personalizada para el cuidado y aseo de tu perro, adaptándonos a sus necesidades específicas y asegurando una experiencia cómoda y libre de estrés.</p>
                 </div>
                 <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
                   <i class="bx bx-cube-alt"></i>
-                  <h4><a href="https://peluqueriaparaperros.com.ar/" target="_blank">Ullamco laboris nisi</a></h4>
+                  <h4><a href="https://peluqueriaparaperros.com.ar/" target="_blank">Maquetado</a></h4>
                   <p>Llevamos la peluquería canina directamente a tu hogar, reduciendo el estrés de tu mascota y brindándote máxima comodidad.</p>
                 </div>
                 <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
                   <i class="bx bx-images"></i>
-                  <h4><a href="https://peluqueriaparaperros.com.ar/" target="_blank">Labore consequatur</a></h4>
+                  <h4><a href="https://peluqueriaparaperros.com.ar/" target="_blank">Programación</a></h4>
                   <p>Utilizamos productos y técnicas especializadas para un cuidado completo del pelaje y la piel de tu perro.</p>
                 </div>
                 <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="300">
                   <i class="bx bx-shield"></i>
-                  <h4><a href="https://peluqueriaparaperros.com.ar/" target="_blank">Beatae veritatis</a></h4>
+                  <h4><a href="https://peluqueriaparaperros.com.ar/" target="_blank">Hosting</a></h4>
                   <p>Nuestro servicio garantiza higiene, bienestar y un estilo único para que tu perro luzca increíble.</p>
                 </div>
               </div>
@@ -201,7 +201,7 @@
       <div class="container">
 
         <div class="section-title">
-          <h2 data-aos="fade-in">Services</h2>
+          <h2 data-aos="fade-in">Servicios</h2>
           <p data-aos="fade-in">Somos la primera peluquería canina a domicilio de Argentina. Desde hace 33 años brindamos el mejor servicios de baño y peluquería para perros a domicilio. Con productos de calidad a un precio accesible cuidando la salud de tu mascota. Expertos en baño de perros a domicilio. Somos Smokie, tu primer peluquería canina a domicilio.</p>
         </div>
 
@@ -284,6 +284,30 @@
               <li><i class="bi bi-check"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
             </ul>
           </div>
+          <!--SCRIPT PAYPAL-->
+          <!-- <div id="paypal-button-container-P-7C784145505418241M6N3OAY"></div>
+            <script src="https://www.paypal.com/sdk/js?client-id=ASZmbCcubF4VKAUuS4gRHinBxgp2ZfZ0X5uPTkOPJ3Wfnzl6G_kc7iMV1Ws1NSCkZGZtWrSWndCrrY9u&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+            <script>
+            paypal.Buttons({
+                style: {
+                    shape: 'pill',
+                    color: 'blue',
+                    layout: 'vertical',
+                    label: 'subscribe'
+                },
+                createSubscription: function(data, actions) {
+                  return actions.subscription.create({
+                /* Creates the subscription */
+                   plan_id: 'P-7C784145505418241M6N3OAY'
+                    });
+                  },
+                  onApprove: function(data, actions) {
+                    alert(data.subscriptionID); // You can add optional success message for the subscriber here
+                  }
+              }).render('#paypal-button-container-P-7C784145505418241M6N3OAY'); // Renders the PayPal button
+            </script> -->
+          <!--FIN SCRIPT PAYPAL-->
+
         </div>
 
         <div class="row content">
@@ -494,7 +518,7 @@
     </section><!-- End Portfolio Section -->
 
     <!-- ======= Team Section ======= -->
-    <section id="team" class="team section-bg">
+    <!-- <section id="team" class="team section-bg">
       <div class="container">
 
         <div class="section-title">
@@ -561,7 +585,8 @@
         </div>
 
       </div>
-    </section><!-- End Team Section -->
+    </section> -->
+    <!-- End Team Section -->
 
     <!-- ======= Pricing Section ======= -->
     <section id="pricing" class="pricing section-bg">
