@@ -4014,6 +4014,7 @@
   }
   .xs-ls-minus-2px {
     letter-spacing: -2px !important;
+    font-size: -webkit-xxx-large;
   }
   .xs-ls-minus-3px {
     letter-spacing: -3px !important;
@@ -19649,6 +19650,7 @@
   .navbar-expand-lg > .container-fluid {
     padding-right: 0;
     padding-left: 0;
+    padding-bottom: 10px;
   }
   .navbar-expand-lg .container-lg {
     padding-right: 0;
