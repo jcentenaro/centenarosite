@@ -19327,3 +19327,91 @@ footer .footer-navbar .nav-item:last-child a {
 .footer-demo img {
   max-height: 55px !important;
 }
+/*-- boton WA --*/
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#25d366;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+  font-size:30px;
+	box-shadow: 2px 2px 3px #999;
+  z-index:100;
+}
+.float:hover {
+	text-decoration: none;
+	color: #25d366;
+  background-color:#fff;
+}
+
+.my-float{
+	margin-top:16px;
+}
+    /*-- fin boton WA --*/
+    /*-- boton WA slider --*/
+    .wa-horizontal-buttn a {
+      font-size: 14px;
+      color: #fff;
+      text-decoration: none;
+      text-transform: uppercase;
+      display: flex;
+      margin: 10px auto 0;
+      width: 60%;
+      border-radius: 25px;
+      text-align: center;
+      letter-spacing: 2px;
+      /* background-color: rgba(255, 255, 255, 0.05); */
+      background-color: #25d366;
+      outline: none;
+      padding: 10px 22px;
+      /* border: 2px solid #21C4CB; */
+      justify-content: center;
+      font-weight: 600;
+  }
+  .wa-horizontal-buttn a:hover {
+      background:rgba(255, 255, 255, 0.17);
+      color: #fff;
+  }
+
+  @media(max-width:1080px){
+    .wa-horizontal-buttn a {
+      font-size: 13px;
+    }
+    .about-para p {
+      font-size: 14px;
+    }
+    .arrow ul li p {
+      font-size: 14px;
+    }
+  }
+  @media(max-width:768px){
+    .wa-horizontal-buttn a {
+      padding: 6px 24px;
+  }
+  }
+  @media(max-width:568px){
+    .wa-horizontal-buttn a {
+      padding: 5px 23px;
+  }
+  }
+  @media(max-width:384px){
+    .wa-horizontal-buttn a {
+      font-size: 12px;
+    padding: 5px 20px;
+  }
+}
+@media(max-width:320px){
+  .wa-horizontal-buttn a {
+    padding: 5px 17px;
+}
+wa-horizontal-buttn
+.arrow ul li p,.about-para p {
+    font-size: 13.5px;
+}
+}
+
+  /*-- fin boton WA slider --*/
