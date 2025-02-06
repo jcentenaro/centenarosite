@@ -19354,16 +19354,16 @@ footer .footer-navbar .nav-item:last-child a {
     /*-- fin boton WA --*/
     /*-- boton WA slider --*/
     .wa-horizontal-buttn a {
-      font-size: 14px;
+      font-size: 16px;
       color: #fff;
       text-decoration: none;
       text-transform: uppercase;
       display: flex;
       margin: 10px auto 0;
-      width: 60%;
-      border-radius: 25px;
+      width: 40%;
+      border-radius: 4px;
       text-align: center;
-      letter-spacing: 2px;
+      /* letter-spacing: 2px; */
       /* background-color: rgba(255, 255, 255, 0.05); */
       background-color: #25d366;
       outline: none;
