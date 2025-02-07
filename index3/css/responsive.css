@@ -19703,7 +19703,7 @@
     outline: none;
   }
   header.sticky .navbar-brand {
-    padding: 22px 0;
+    padding: 14px 0;
   }
   header.sticky .navbar-nav .nav-link {
     color: var(--dark-gray);
