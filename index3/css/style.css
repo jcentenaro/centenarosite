@@ -101,8 +101,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 section {
-  padding-top: 110px;
-  padding-bottom: 110px;
+  padding-top: 75px;
+  padding-bottom: 75px;
 }
 section.half-section {
   padding-top: 70px;

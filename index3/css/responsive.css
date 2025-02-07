@@ -19684,7 +19684,7 @@
     padding-bottom: 0;
   }
   header .navbar-brand {
-    padding: 22px 0;
+    padding: 14px 0;
   }
   header .navbar-brand .default-logo, header .navbar-brand .alt-logo {
     visibility: hidden !important;
@@ -20235,7 +20235,7 @@
     margin-top: 76px;
   }
   .ipad-top-space-margin {
-    margin-top: 76px;
+    margin-top: 80px;
   }
   .full-screen.top-space-margin {
     height: calc(100vh - 76px);

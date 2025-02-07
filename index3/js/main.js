@@ -436,25 +436,25 @@
     }
 
     // Get top space height
-    function setTopSpaceHeight() {
+    // function setTopSpaceHeight() {
 
-        if (!$('header').hasClass('sticky') && ($('.top-space-margin').length || $('.top-space-padding').length) || $('.ipad-top-space-margin').length) {
-            var headerHeight = getHeaderHeight();
-            if ($('.top-space-margin').length) {
-                $('.top-space-margin').css('margin-top', headerHeight);
-            }
-            if ($('.top-space-padding').length) {
-                $('.top-space-padding').css('padding-top', headerHeight);
-            }
-            if ($('.ipad-top-space-margin').length) {
-                if (getWindowWidth() <= menuBreakPoint) {
-                    $('.ipad-top-space-margin').css('margin-top', headerHeight);
-                } else {
-                    $('.ipad-top-space-margin').css('margin-top', 'inherit');
-                }
-            }
-        }
-    }
+    //     if (!$('header').hasClass('sticky') && ($('.top-space-margin').length || $('.top-space-padding').length) || $('.ipad-top-space-margin').length) {
+    //         var headerHeight = getHeaderHeight();
+    //         if ($('.top-space-margin').length) {
+    //             $('.top-space-margin').css('margin-top', headerHeight);
+    //         }
+    //         if ($('.top-space-padding').length) {
+    //             $('.top-space-padding').css('padding-top', headerHeight);
+    //         }
+    //         if ($('.ipad-top-space-margin').length) {
+    //             if (getWindowWidth() <= menuBreakPoint) {
+    //                 $('.ipad-top-space-margin').css('margin-top', headerHeight);
+    //             } else {
+    //                 $('.ipad-top-space-margin').css('margin-top', 'inherit');
+    //             }
+    //         }
+    //     }
+    // }
 
     // Menu position
     function menuPosition(element) {
@@ -2461,37 +2461,37 @@
     }
 
     // Full screen
-    function fullScreenHeight() {
-        var fullScreenObj = $('.full-screen'),
-                minHeight = getWindowHeight(),
-                headerHeight = getHeaderHeight();
-        if (!$('header').hasClass('sticky')) {
-            fullScreenObj.parents('section').imagesLoaded(function () {
-                if ($('section:first.full-screen, section:first .full-screen').length && ($('.top-space-margin').length || $('.mobile-top-space').length) || $('.ipad-top-space-margin').length) {
-                    if ($('.ipad-top-space-margin').length) {
-                        if (getWindowWidth() <= menuBreakPoint) {
-                            $('section:first.full-screen, section:first .full-screen').css('height', minHeight - headerHeight);
-                        } else {
-                            $('section:first.full-screen, section:first .full-screen').css('height', minHeight);
-                        }
-                    } else {
-                        $('section:first.full-screen, section:first .full-screen').css('height', minHeight - headerHeight);
-                    }
-                } else if ($('header nav.navbar').hasClass('top-space-margin') || $('header nav.navbar').hasClass('mobile-top-space')) {
-                    if ($('header nav.navbar').hasClass('ipad-top-space-margin')) {
-                        if (getWindowWidth() <= menuBreakPoint) {
-                            minHeight = minHeight - $('header nav.navbar').outerHeight();
-                        }
-                    } else {
-                        minHeight = minHeight - $('header nav.navbar').outerHeight();
-                    }
-                    fullScreenObj.css('height', minHeight);
-                } else {
-                    fullScreenObj.css('height', minHeight);
-                }
-            });
-        }
-    }
+    // function fullScreenHeight() {
+    //     var fullScreenObj = $('.full-screen'),
+    //             minHeight = getWindowHeight(),
+    //             headerHeight = getHeaderHeight();
+    //     if (!$('header').hasClass('sticky')) {
+    //         fullScreenObj.parents('section').imagesLoaded(function () {
+    //             if ($('section:first.full-screen, section:first .full-screen').length && ($('.top-space-margin').length || $('.mobile-top-space').length) || $('.ipad-top-space-margin').length) {
+    //                 if ($('.ipad-top-space-margin').length) {
+    //                     if (getWindowWidth() <= menuBreakPoint) {
+    //                         $('section:first.full-screen, section:first .full-screen').css('height', minHeight - headerHeight);
+    //                     } else {
+    //                         $('section:first.full-screen, section:first .full-screen').css('height', minHeight);
+    //                     }
+    //                 } else {
+    //                     $('section:first.full-screen, section:first .full-screen').css('height', minHeight - headerHeight);
+    //                 }
+    //             } else if ($('header nav.navbar').hasClass('top-space-margin') || $('header nav.navbar').hasClass('mobile-top-space')) {
+    //                 if ($('header nav.navbar').hasClass('ipad-top-space-margin')) {
+    //                     if (getWindowWidth() <= menuBreakPoint) {
+    //                         minHeight = minHeight - $('header nav.navbar').outerHeight();
+    //                     }
+    //                 } else {
+    //                     minHeight = minHeight - $('header nav.navbar').outerHeight();
+    //                 }
+    //                 fullScreenObj.css('height', minHeight);
+    //             } else {
+    //                 fullScreenObj.css('height', minHeight);
+    //             }
+    //         });
+    //     }
+    // }
 
     // Get cookie
     function getCookie(cname) {
