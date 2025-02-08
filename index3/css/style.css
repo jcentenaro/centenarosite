@@ -6615,6 +6615,7 @@ input:focus, select:focus, textarea:focus, .form-control:focus {
 }
 .fw-200 {
   font-weight: 200 !important;
+  font-size: small;
 }
 .fw-300 {
   font-weight: 300 !important;
