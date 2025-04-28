@@ -203,27 +203,3 @@
   });
 
 })()
-
-// Mostrar el modal al cargar la página
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('passwordModal').classList.add('active');
-});
-
-// Función para verificar la clave
-function verifyPassword() {
-  const passwordInput = document.getElementById('passwordInput').value;
-  const errorMessage = document.getElementById('errorMessage');
-  const modal = document.getElementById('passwordModal');
-
-  // Clave correcta (esto es un ejemplo, cámbialo por tu clave real)
-  const correctPassword = 'zxczxczxc';
-
-  if (passwordInput === correctPassword) {
-    // Ocultar el modal si la clave es correcta
-    modal.classList.remove('active');
-    errorMessage.style.display = 'none';
-  } else {
-    // Mostrar mensaje de error si la clave es incorrecta
-    errorMessage.style.display = 'block';
-  }
-}
