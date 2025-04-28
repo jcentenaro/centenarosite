@@ -45,6 +45,18 @@
   <!-- End Google Tag Manager (noscript) -->
 
   <!-- ======= Header ======= -->
+
+  <!-- Modal -->
+  <div id="passwordModal" class="modal">
+    <div class="modal-content">
+      <h2>Ingresar Clave</h2>
+      <p>Por favor, ingresa la clave para acceder al sitio:</p>
+      <input type="password" id="passwordInput" placeholder="Clave">
+      <button onclick="verifyPassword()">Enviar</button>
+      <p id="errorMessage" class="error" style="display: none;">Clave incorrecta. Intenta de nuevo.</p>
+    </div>
+  </div>
+  
   <header id="header">
     <div class="container d-flex align-items-center justify-content-between">
 
