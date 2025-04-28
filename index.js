@@ -8,6 +8,14 @@ const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const { Sequelize } = require("sequelize");
 
+// Verificar carga de mysql2
+try {
+  const mysql2 = require("mysql2");
+  console.log("mysql2 cargado correctamente:", !!mysql2);
+} catch (err) {
+  console.error("Error al cargar mysql2:", err);
+}
+
 // Configuración de la base de datos para sesiones
 const sequelize = new Sequelize({
   dialect: "mysql",
@@ -16,11 +24,22 @@ const sequelize = new Sequelize({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   port: process.env.DB_PORT || 3306,
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  }
 });
 
 const sessionStore = new SequelizeStore({
   db: sequelize,
-  tableName: "sessions", // Nombre de la tabla para sesiones
+  tableName: "sessions"
+});
+
+// Sincronizar la tabla de sesiones con manejo de errores
+sessionStore.sync().catch((err) => {
+  console.error("Error al sincronizar la tabla de sesiones:", err);
 });
 
 // Configuración de sesiones
@@ -30,12 +49,9 @@ app.use(
     store: sessionStore,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 }, // 24 horas
+    cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 }
   })
 );
-
-// Sincronizar la tabla de sesiones
-sessionStore.sync();
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "./src/views"));
@@ -54,7 +70,6 @@ app.use(methodOverride("_method"));
 
 // Middleware para proteger rutas
 app.use((req, res, next) => {
-  // Permitir acceso a la ruta de login y al procesamiento del login
   if (
     req.path === "/login" ||
     req.path === "/login-submit" ||
@@ -62,11 +77,9 @@ app.use((req, res, next) => {
   ) {
     return next();
   }
-  // Si el usuario está autenticado, continuar
   if (req.session.isAuthenticated) {
     return next();
   }
-  // Redirigir al formulario de login
   res.redirect("/login");
 });
 
