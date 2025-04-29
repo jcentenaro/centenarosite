@@ -1,5 +1,5 @@
 // src/config/db.js
-// Agregado comentario para forzar nuevo despliegue en Vercel
+// Forzar nuevo despliegue en Vercel
 const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize({
