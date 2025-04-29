@@ -1,9 +1,9 @@
-// src/config/db.js
-// Forzar nuevo despliegue en Vercel
 const { Sequelize } = require("sequelize");
+const pg = require("pg"); // Importar pg explícitamente
 
 const sequelize = new Sequelize({
   dialect: "postgres",
+  dialectModule: pg, // Forzar el uso de pg
   host: process.env.DB_HOST,
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
@@ -15,7 +15,7 @@ const sequelize = new Sequelize({
     acquire: 30000,
     idle: 10000,
   },
-  logging: console.log, // Temporalmente habilitado para depuración
+  logging: console.log, // Mantener para depuración
   dialectOptions: {
     ssl: {
       require: true,
