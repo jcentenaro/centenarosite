@@ -1,3 +1,4 @@
+const { QueryTypes } = require("sequelize");
 const transporter = require("../utils/nodemailer");
 const db = require("../config/db");
 
@@ -13,7 +14,7 @@ const loginSubmit = (req, res) => {
   const { key } = req.body;
 
   if (key === process.env.ACCESS_KEY) {
-    req.session.isAuthenticated = true;
+    // req.session.isAuthenticated = true;
     res.redirect("/");
   } else {
     res.render("login", { layout: false, error: "Clave incorrecta" });
@@ -21,12 +22,13 @@ const loginSubmit = (req, res) => {
 };
 
 const logout = (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error("Error al cerrar sesión:", err);
-    }
-    res.redirect("/login");
-  });
+  // req.session.destroy((err) => {
+  //   if (err) {
+  //     console.error("Error al cerrar sesión:", err);
+  //   }
+  //   res.redirect("/login");
+  // });
+  res.redirect("/login");
 };
 
 const sendContact = async (req, res) => {
@@ -55,8 +57,11 @@ const sendContact = async (req, res) => {
   try {
     // Insertar datos en la base de datos
     const [result] = await db.query(
-      "INSERT INTO contacts (name, email, subject, message) VALUES (?, ?, ?, ?)",
-      [name, email, subject, message]
+      "INSERT INTO contacts (name, email, subject, message) VALUES (:name, :email, :subject, :message)",
+      {
+        replacements: { name, email, subject, message },
+        type: db.QueryTypes.INSERT
+      }
     );
     console.log("Datos guardados en la base de datos:", result);
 
