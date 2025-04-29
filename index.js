@@ -5,23 +5,23 @@ const app = express();
 const path = require("path");
 const expressLayouts = require("express-ejs-layouts");
 const methodOverride = require("method-override");
-const session = require("express-session");
-const SequelizeStore = require("connect-session-sequelize")(session.Store);
+// const session = require("express-session");
+// const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const sequelize = require("./src/config/db");
 
 // Configuración del almacén de sesiones
-const sessionStore = new SequelizeStore({
-  db: sequelize,
-  tableName: "sessions",
-  checkExpirationInterval: 15 * 60 * 1000,
-  expiration: 24 * 60 * 60 * 1000,
-  logging: false,
-  disableTouch: true, // Evita actualizaciones automáticas
-  extendDefaultFields: (defaults, session) => ({
-    data: defaults.data,
-    expires: defaults.expires,
-  }),
-});
+// const sessionStore = new SequelizeStore({
+//   db: sequelize,
+//   tableName: "sessions",
+//   checkExpirationInterval: 15 * 60 * 1000,
+//   expiration: 24 * 60 * 60 * 1000,
+//   logging: false,
+//   disableTouch: true, // Evita actualizaciones automáticas
+//   extendDefaultFields: (defaults, session) => ({
+//     data: defaults.data,
+//     expires: defaults.expires,
+//   }),
+// });
 
 // Sincronizar la tabla de sesiones (comentar después de crear la tabla)
 // sessionStore.sync().catch((err) => {
@@ -29,18 +29,18 @@ const sessionStore = new SequelizeStore({
 // });
 
 // Configuración de sesiones
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    store: sessionStore,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 24 * 60 * 60 * 1000,
-    },
-  })
-);
+// app.use(
+//   session({
+//     secret: process.env.SESSION_SECRET,
+//     store: sessionStore,
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: {
+//       secure: process.env.NODE_ENV === "production",
+//       maxAge: 24 * 60 * 60 * 1000,
+//     },
+//   })
+// );
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "./src/views"));
