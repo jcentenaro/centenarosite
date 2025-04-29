@@ -1,19 +1,3 @@
-// const mysql = require("mysql2/promise");
-
-// const pool = mysql.createPool({
-//   host: process.env.DB_HOST,
-//   user: process.env.DB_USER,
-//   password: process.env.DB_PASSWORD,
-//   database: process.env.DB_NAME,
-//   port: process.env.DB_PORT || 3306,
-//   waitForConnections: true,
-//   connectionLimit: 10,
-//   queueLimit: 0,
-// });
-
-// module.exports = pool;
-
-// src/config/db.js
 const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize({
@@ -24,14 +8,14 @@ const sequelize = new Sequelize({
   database: process.env.DB_NAME,
   port: process.env.DB_PORT || 3306,
   pool: {
-    max: 5, // Reducir conexiones máximas
+    max: 5,
     min: 0,
     acquire: 30000,
     idle: 10000,
   },
-  logging: false,
+  logging: (msg) => console.log("Sequelize:", msg), // Habilitar logs para depuración
   dialectOptions: {
-    connectTimeout: 60000, // Aumentar el tiempo de conexión
+    connectTimeout: 60000,
   },
 });
 
