@@ -1,8 +1,10 @@
+// src/config/db.js
+// Agregado comentario para forzar nuevo despliegue en Vercel
 const { Sequelize } = require("sequelize");
 
 const sequelize = new Sequelize({
   dialect: "postgres",
-  host: process.env.DB_HOST, // Ejemplo: ep-cool-project-123456.us-east-2.aws.neon.tech
+  host: process.env.DB_HOST,
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
@@ -13,17 +15,16 @@ const sequelize = new Sequelize({
     acquire: 30000,
     idle: 10000,
   },
-  logging: false,
+  logging: console.log, // Temporalmente habilitado para depuración
   dialectOptions: {
     ssl: {
       require: true,
-      rejectUnauthorized: false, // Neon usa certificados autofirmados
+      rejectUnauthorized: false,
     },
     connectTimeout: 60000,
   },
 });
 
-// Probar la conexión a la base de datos
 (async () => {
   try {
     await sequelize.authenticate();
