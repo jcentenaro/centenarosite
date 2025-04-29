@@ -14,7 +14,6 @@ const loginSubmit = (req, res) => {
   const { key } = req.body;
 
   if (key === process.env.ACCESS_KEY) {
-    // req.session.isAuthenticated = true;
     res.redirect("/");
   } else {
     res.render("login", { layout: false, error: "Clave incorrecta" });
@@ -22,12 +21,6 @@ const loginSubmit = (req, res) => {
 };
 
 const logout = (req, res) => {
-  // req.session.destroy((err) => {
-  //   if (err) {
-  //     console.error("Error al cerrar sesión:", err);
-  //   }
-  //   res.redirect("/login");
-  // });
   res.redirect("/login");
 };
 
@@ -44,8 +37,6 @@ const sendContact = async (req, res) => {
 
   const { name, email, subject, message } = req.body;
 
-  // console.log("Campos recibidos:", { name, email, subject, message });
-
   if (!name || !email || !subject || !message) {
     console.error("Faltan campos en el formulario");
     return res.render("index", {
@@ -55,7 +46,6 @@ const sendContact = async (req, res) => {
   }
 
   try {
-    // Insertar datos en la base de datos
     const [result] = await db.query(
       "INSERT INTO contacts (name, email, subject, message) VALUES (:name, :email, :subject, :message)",
       {
