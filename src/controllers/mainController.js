@@ -44,7 +44,7 @@ const sendContact = async (req, res) => {
 
   const { name, email, subject, message } = req.body;
 
-  console.log("Campos recibidos:", { name, email, subject, message });
+  // console.log("Campos recibidos:", { name, email, subject, message });
 
   if (!name || !email || !subject || !message) {
     console.error("Faltan campos en el formulario");

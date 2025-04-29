@@ -51,7 +51,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 app.use((req, res, next) => {
   if (req.method === "POST") {
-    console.log("Método:", req.method, "URL:", req.url, "Body:", req.body);
+    // console.log("Método:", req.method, "URL:", req.url, "Body:", req.body);
   }
   next();
 });

@@ -13,7 +13,10 @@ const sequelize = new Sequelize({
     acquire: 30000,
     idle: 10000,
   },
-  logging: (msg) => console.log("Sequelize:", msg), // Habilitar logs para depuración
+  // Habilitar logs para depuración
+  // logging: (msg) => console.log("Sequelize:", msg),
+  // Deshabilito logs
+  logging: false,
   dialectOptions: {
     connectTimeout: 60000,
   },
