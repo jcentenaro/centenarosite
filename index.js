@@ -29,7 +29,7 @@ app.use(
 
 // Depuración: Log para todas las solicitudes
 app.use((req, res, next) => {
-  console.log(`[${req.method}] ${req.url} - Autenticado: ${req.session.isAuthenticated || false}`);
+  console.log(`[${req.method}] ${req.url} - Autenticado: ${req.session.isAuthenticated || false}, Session ID: ${req.sessionID}`);
   next();
 });
 
@@ -38,6 +38,10 @@ app.post("/login-submit", (req, res) => {
   console.log("Procesando POST /login-submit");
   const { key } = req.body;
   console.log("Clave recibida:", key);
+  if (!key || key.trim() === "") {
+    console.log("Clave vacía, renderizando index con error");
+    return res.render("index", { showLoginModal: true, error: "La clave no puede estar vacía" });
+  }
   if (key === process.env.ACCESS_KEY) {
     req.session.isAuthenticated = true;
     console.log("Sesión actualizada:", req.session);
