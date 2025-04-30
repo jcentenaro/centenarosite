@@ -2,27 +2,29 @@ const { QueryTypes } = require("sequelize");
 const transporter = require("../utils/nodemailer");
 const db = require("../config/db");
 
+// src/controllers/mainController.js
 const index = (req, res) => {
-  res.render("index");
+  console.log("Accediendo a index, autenticado:", req.session.isAuthenticated);
+  res.render("index", { showLoginModal: false, error: null });
 };
 
-const login = (req, res) => {
-  res.render("login", { layout: false });
-};
+// const login = (req, res) => {
+//   res.render("login", { layout: false });
+// };
 
-const loginSubmit = (req, res) => {
-  const { key } = req.body;
+// const loginSubmit = (req, res) => {
+//   const { key } = req.body;
 
-  if (key === process.env.ACCESS_KEY) {
-    res.redirect("/");
-  } else {
-    res.render("login", { layout: false, error: "Clave incorrecta" });
-  }
-};
+//   if (key === process.env.ACCESS_KEY) {
+//     res.redirect("/");
+//   } else {
+//     res.render("login", { layout: false, error: "Clave incorrecta" });
+//   }
+// };
 
-const logout = (req, res) => {
-  res.redirect("/login");
-};
+// const logout = (req, res) => {
+//   res.redirect("/login");
+// };
 
 const sendContact = async (req, res) => {
   console.log("Método:", req.method, "URL:", req.url, "Body:", req.body);
@@ -83,7 +85,7 @@ const sendContact = async (req, res) => {
 module.exports = {
   index,
   sendContact,
-  login,
-  loginSubmit,
-  logout,
+  // login,
+  // loginSubmit,
+  // logout,
 };
