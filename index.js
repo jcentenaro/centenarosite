@@ -1,4 +1,3 @@
-// index.js
 require("dotenv").config();
 const express = require("express");
 const app = express();
@@ -6,16 +5,34 @@ const path = require("path");
 const expressLayouts = require("express-ejs-layouts");
 const methodOverride = require("method-override");
 const session = require("express-session");
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
+const multer = require("multer");
 const sequelize = require("./src/config/db");
 
+app.set("trust proxy", 1); // Confiar en el primer proxy
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "./src/views"));
 app.use(expressLayouts);
 app.set("layout", "layouts/layout");
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Configurar multer para manejar multipart/form-data (solo campos de texto)
+const upload = multer();
+app.use(upload.none()); // Procesar formularios sin archivos
+
 app.use(methodOverride("_method"));
+
+// Configurar el almacén de sesiones
+const sessionStore = new SequelizeStore({
+  db: sequelize,
+  tableName: "Sessions",
+  checkExpirationInterval: 15 * 60 * 1000, // Limpieza cada 15 minutos
+  expiration: 24 * 60 * 60 * 1000, // Sesiones expiran en 24 horas
+});
+sessionStore.sync();
 
 // Configurar sesiones
 app.use(
@@ -23,7 +40,11 @@ app.use(
     secret: process.env.SESSION_SECRET || "your-secret-key",
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 }, // 24 horas
+    store: sessionStore,
+    cookie: {
+      secure: process.env.NODE_ENV === "production" ? true : false, // Usar secure en producción
+      maxAge: 24 * 60 * 60 * 1000, // 24 horas
+    },
   })
 );
 
@@ -35,37 +56,40 @@ app.use((req, res, next) => {
 
 // Ruta para manejar el login
 app.post("/login-submit", (req, res) => {
-  console.log("Procesando POST /login-submit");
+  console.log("Procesando POST /login-submit, Body:", req.body);
   const { key } = req.body;
-  console.log("Clave recibida:", key);
   if (!key || key.trim() === "") {
-    console.log("Clave vacía, renderizando index con error");
+    console.log("Clave vacía, mostrando error");
     return res.render("index", { showLoginModal: true, error: "La clave no puede estar vacía" });
   }
   if (key === process.env.ACCESS_KEY) {
     req.session.isAuthenticated = true;
-    console.log("Sesión actualizada:", req.session);
+    console.log("Autenticación exitosa, guardando sesión:", req.session);
     req.session.save((err) => {
       if (err) {
         console.error("Error al guardar la sesión:", err);
         return res.status(500).send("Error al guardar la sesión");
       }
       console.log("Sesión guardada, redirigiendo a /");
-      res.redirect("/");
+      return res.redirect("/");
     });
   } else {
-    console.log("Clave incorrecta, renderizando index con error");
-    res.render("index", { showLoginModal: true, error: "Clave incorrecta" });
+    console.log("Clave incorrecta, mostrando error");
+    return res.render("index", { showLoginModal: true, error: "Clave incorrecta" });
   }
 });
 
 // Middleware para verificar autenticación
 const isAuthenticated = (req, res, next) => {
-  console.log("Estado de la sesión:", req.session);
+  console.log("Verificando autenticación:", {
+    sessionID: req.sessionID,
+    isAuthenticated: req.session.isAuthenticated,
+    session: req.session,
+  });
   if (req.session.isAuthenticated) {
     return next();
   }
-  console.log("No autenticado, mostrando modal");
+  console.log("No autenticado, mostrando modal de login");
   res.render("index", { showLoginModal: true, error: null });
 };
 
