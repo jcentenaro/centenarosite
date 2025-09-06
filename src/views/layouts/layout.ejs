@@ -38,4 +38,16 @@
 
 </body>
 
+    <script>
+    document.addEventListener('visibilitychange', function() {
+        if (document.visibilityState === 'visible') {
+            // La pestaña está visible
+            document.title = 'Mi Página Web'; // Título original
+        } else {
+            // La pestaña está oculta (no en vista)
+            document.title = '¡Vuelve a ver nuestra página!'; // Nuevo título
+        }
+    });
+    </script>
+    
 </html>
