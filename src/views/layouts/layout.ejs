@@ -39,15 +39,23 @@
 </body>
 
     <script>
-    document.addEventListener('visibilitychange', function() {
-        if (document.visibilityState === 'visible') {
-            // La pestaña está visible
-            document.title = 'Tu propio sitio Web'; // Título original
-        } else {
-            // La pestaña está oculta (no en vista)
-            document.title = '¡Vuelve por tu Sitio!'; // Nuevo título
-        }
-    });
-    </script>
+let intervalId; // para guardar el intervalo
+let toggle = false; // para alternar los mensajes
+
+document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible') {
+        // La pestaña está visible
+        clearInterval(intervalId); // detenemos el cambio
+        document.title = 'Tu Sitio Web'; // restauramos título original
+    } else {
+        // La pestaña está oculta
+        intervalId = setInterval(() => {
+            document.title = toggle ? "Hola" : "¿Por qué te fuiste?";
+            toggle = !toggle;
+        }, 1500); // cambia cada 1.5 segundos (ajusta el tiempo a gusto)
+    }
+});
+</script>
+
 
 </html>
