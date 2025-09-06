@@ -27,6 +27,11 @@
   <!-- Template Main CSS File -->
   <link href="/css/style.css" rel="stylesheet">
 
+  <button onclick="mostrarMensaje()">Haz clic aquí</button>
+<div id="miSolapa" onmouseover="mostrarMensajeEnSolapa()" onmouseout="ocultarMensajeEnSolapa()">
+  Contenido de la solapa
+</div>
+
 </head>
 
 <body>
@@ -37,5 +42,15 @@
   <script src="/js/main.js"></script>
 
 </body>
+
+function mostrarMensaje() {
+  alert("¡La solapa está activa!"); // Mensaje para la solapa que está activa
+}
+
+function mostrarMensajeEnSolapa() {
+  // Aquí puedes poner el código que quieras que se ejecute
+  // cuando la solapa no está activa (por ejemplo, si el usuario entra con el ratón)
+  alert("¡La solapa no está activa!");
+}
 
 </html>
