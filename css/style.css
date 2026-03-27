@@ -1,0 +1,373 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  background: #fff;
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header */
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(255,255,255,0.95);
+  border-bottom: 1px solid #eee;
+  z-index: 100;
+  padding: 1rem 0;
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #c0392b;          /* rojo rosado/rosa fuerte como guiño al nombre "Rosada" */
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2.5rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #c0392b;
+}
+
+/* Hero */
+.hero {
+  height: 90vh;
+  min-height: 600px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: 70px;
+}
+
+/* .hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+} */
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(43, 42, 42, 0.4), rgba(56, 56, 56, 0.6));
+  display: flex;
+  align-items: flex-end;        /* ← ancla el contenido abajo */
+  justify-content: center;
+  text-align: center;
+  color: white;
+  padding-bottom: 5rem;         /* ← distancia desde el borde inferior */
+}
+
+/* .hero-content h1 {
+  font-size: 3.2rem;
+  margin-bottom: 1.5rem;
+  max-width: 900px;
+} */
+
+.hero-content h1 {
+  font-size: 3.2rem;
+  margin-bottom: 1.5rem;
+  max-width: 800px;       /* ← ancho de la caja de texto */
+  line-height: 1.22;       /* ← interlineado */
+}
+
+.price {
+  font-size: 3.2rem;
+  font-weight: 700;
+  margin: 1rem 0 2rem;
+}
+
+.btn {
+  display: inline-block;
+  background: #c0392b;
+  color: white;
+  padding: 1rem 2.5rem;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #a93226;
+}
+
+/* Secciones */
+.section {
+  padding: 6rem 0;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2.8rem;
+  margin-bottom: 3rem;
+  color: #222;
+}
+
+.properties-grid,
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+}
+
+.property-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s;
+}
+
+.property-card:hover {
+  transform: translateY(-10px);
+}
+
+.property-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.info {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.info h3 {
+  font-size: 1.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.info p {
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.price {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #c0392b;
+  margin: 1rem 0;
+}
+
+.btn-small {
+  background: #c0392b;
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.alquiler {
+  background: #f9f9f9;
+}
+
+/* Trust */
+.trust-item {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.trust-item h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #c0392b;
+}
+
+/* Contacto */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+
+.contact-info p {
+  margin-bottom: 1.2rem;
+  font-size: 1.1rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1.2rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.contact-form button {
+  background: #c0392b;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  width: 100%;
+}
+
+/* Footer */
+footer {
+  background: #222;
+  color: white;
+  text-align: center;
+  padding: 2rem 0;
+  font-size: 0.95rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-content h1 { font-size: 2.6rem; }
+  .price { font-size: 2.4rem; }
+  .contact-grid { grid-template-columns: 1fr; }
+  nav ul { flex-direction: column; gap: 1rem; }
+}
+
+/* Ventana Emergente */
+/* ================================
+   LIGHTBOX
+================================ */
+.lightbox-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.lightbox-overlay.active {
+  display: flex;
+}
+.lightbox-img {
+  max-height: 80vh;
+  max-width: 80vw;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 0 40px rgba(0,0,0,0.8);
+  transition: opacity 0.3s ease;
+}
+
+/* Flechas laterales fijas a los costados de la pantalla */
+.lightbox-btn {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.12);
+  border: 2px solid rgba(255,255,255,0.6);
+  color: white;
+  font-size: 1.8rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.lightbox-btn:hover {
+  background: rgba(255,255,255,0.28);
+  border-color: white;
+  transform: translateY(-50%) scale(1.08);
+}
+#lightboxPrev {
+  left: 1.5rem;
+}
+#lightboxNext {
+  right: 1.5rem;
+}
+
+/* Contador centrado abajo de la imagen */
+.lightbox-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.lightbox-counter {
+  color: rgba(255,255,255,0.65);
+  font-size: 0.9rem;
+  font-family: 'Roboto', sans-serif;
+  background: rgba(255,255,255,0.1);
+  padding: 4px 14px;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+}
+
+/* Botón cerrar */
+.lightbox-close {
+  position: fixed;
+  top: 1.2rem;
+  right: 1.5rem;
+  background: rgba(255,255,255,0.1);
+  border: 2px solid rgba(255,255,255,0.4);
+  color: white;
+  font-size: 1.4rem;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  transition: all 0.2s;
+  backdrop-filter: blur(4px);
+}
+.lightbox-close:hover {
+  opacity: 1;
+  background: rgba(255,255,255,0.2);
+  border-color: white;
+}
+
+.property-card img {
+  cursor: zoom-in;
+}
