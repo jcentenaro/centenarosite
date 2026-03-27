@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rosada Inmobiliaria | Propiedades de Lujo</title>
+  <title>Estancia La Rosada de Libertad | Propiedades de Lujo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
@@ -14,8 +14,14 @@
   <!-- Navbar simple -->
   <header class="header">
     <div class="container">
-      <div class="logo">La Rosada de Libertad</div>
+      <div class="logo">Estancia La Rosada de Libertad</div>
       <nav>
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+
         <ul>
           <li><a href="#inicio">Inicio</a></li>
           <li><a href="#ventas">Propiedad</a></li>
@@ -151,8 +157,8 @@ Este galpón / taller de estilo colonial con galería de columnas y piso de ladr
     </div>
   </section>
 
-  <!-- Contacto -->
-  <section id="contacto" class="contact section">
+  <!-- Contacto ORIGINAL-->
+  <!-- <section id="contacto" class="contact section">
     <div class="container">
       <h2>Contacto</h2>
       <div class="contact-grid">
@@ -170,7 +176,74 @@ Este galpón / taller de estilo colonial con galería de columnas y piso de ladr
         </form>
       </div>
     </div>
-  </section>
+  </section> -->
+
+  <!-- Contacto NUEVO -->
+   <!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  emailjs.init("IZi_Ry-SQNnU_vC-g"); // ← reemplazá con tu Public Key
+</script>
+
+<!-- Contacto -->
+<section id="contacto" class="contact section">
+  <div class="container">
+    <h2>Contacto</h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p><strong>Ruta Provincial 1001</strong><br>Libertad, Merlo</p>
+        <p><strong>Tel:</strong> +54 11 6283 6000</p>
+        <p><strong>Email:</strong> centenaro01@hotmail.com</p>
+      </div>
+
+      <form class="contact-form" id="contactForm">
+        <input type="text"  id="nombre"   name="nombre"   placeholder="Nombre"   required>
+        <input type="email" id="email"    name="email"    placeholder="Email"    required>
+        <input type="tel"   id="telefono" name="telefono" placeholder="Teléfono" required>
+        <textarea id="mensaje"  name="mensaje"  placeholder="Mensaje" rows="5" required></textarea>
+        <button type="submit" class="btn" id="submitBtn">Enviar</button>
+        <p id="formStatus" style="margin-top: 10px; font-size: 14px;"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const btn    = document.getElementById("submitBtn");
+    const status = document.getElementById("formStatus");
+
+    btn.disabled    = true;
+    btn.textContent = "Enviando...";
+    status.textContent = "";
+
+    const params = {
+      nombre:   document.getElementById("nombre").value,
+      email:    document.getElementById("email").value,
+      telefono: document.getElementById("telefono").value,
+      mensaje:  document.getElementById("mensaje").value,
+    };
+
+    emailjs.send("service_n5k658m", "template_hxru1zn", params)
+      .then(() => {
+        status.style.color = "green";
+        status.textContent = "¡Mensaje enviado! Te contactaremos pronto.";
+        document.getElementById("contactForm").reset();
+        btn.textContent = "Enviar";
+        btn.disabled = false;
+      })
+      .catch((error) => {
+        status.style.color = "red";
+        status.textContent = "Hubo un error al enviar. Intentá de nuevo.";
+        console.error("EmailJS error:", error);
+        btn.textContent = "Enviar";
+        btn.disabled = false;
+      });
+  });
+</script>
+
 
   <!-- Footer -->
   <footer>
@@ -252,6 +325,15 @@ Este galpón / taller de estilo colonial con galería de columnas y piso de ladr
     if (e.key === 'ArrowRight') showNext();
     if (e.key === 'Escape')     closeLightbox();
   });
+</script>
+
+<script>
+  const toggle = document.getElementById('menuToggle');
+  const nav    = document.querySelector('nav');
+  toggle.addEventListener('click', () => nav.classList.toggle('open'));
+  document.querySelectorAll('nav a').forEach(link =>
+    link.addEventListener('click', () => nav.classList.remove('open'))
+  );
 </script>
 
 <!--  Call Widget-->

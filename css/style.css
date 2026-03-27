@@ -41,7 +41,7 @@ h1, h2, h3 {
 .logo {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #c0392b;          /* rojo rosado/rosa fuerte como guiño al nombre "Rosada" */
+  color: #c0392b;
 }
 
 nav ul {
@@ -61,6 +61,26 @@ nav a:hover {
   color: #c0392b;
 }
 
+/* Hamburguesa — oculta en desktop */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: #333;
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
 /* Hero */
 .hero {
   height: 90vh;
@@ -73,40 +93,23 @@ nav a:hover {
   margin-top: 70px;
 }
 
-/* .hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: white;
-} */
-
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(43, 42, 42, 0.4), rgba(56, 56, 56, 0.6));
+  background: linear-gradient(to bottom, rgba(43,42,42,0.4), rgba(56,56,56,0.6));
   display: flex;
-  align-items: flex-end;        /* ← ancla el contenido abajo */
+  align-items: flex-end;
   justify-content: center;
   text-align: center;
   color: white;
-  padding-bottom: 5rem;         /* ← distancia desde el borde inferior */
+  padding-bottom: 5rem;
 }
-
-/* .hero-content h1 {
-  font-size: 3.2rem;
-  margin-bottom: 1.5rem;
-  max-width: 900px;
-} */
 
 .hero-content h1 {
   font-size: 3.2rem;
   margin-bottom: 1.5rem;
-  max-width: 800px;       /* ← ancho de la caja de texto */
-  line-height: 1.22;       /* ← interlineado */
+  max-width: 800px;
+  line-height: 1.22;
 }
 
 .price {
@@ -165,6 +168,7 @@ h2 {
   width: 100%;
   height: 220px;
   object-fit: cover;
+  cursor: zoom-in;
 }
 
 .info {
@@ -237,6 +241,7 @@ h2 {
   border: 1px solid #ddd;
   border-radius: 6px;
   font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
 }
 
 .contact-form button {
@@ -259,15 +264,6 @@ footer {
   font-size: 0.95rem;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .hero-content h1 { font-size: 2.6rem; }
-  .price { font-size: 2.4rem; }
-  .contact-grid { grid-template-columns: 1fr; }
-  nav ul { flex-direction: column; gap: 1rem; }
-}
-
-/* Ventana Emergente */
 /* ================================
    LIGHTBOX
 ================================ */
@@ -281,9 +277,8 @@ footer {
   align-items: center;
   flex-direction: column;
 }
-.lightbox-overlay.active {
-  display: flex;
-}
+.lightbox-overlay.active { display: flex; }
+
 .lightbox-img {
   max-height: 80vh;
   max-width: 80vw;
@@ -293,7 +288,6 @@ footer {
   transition: opacity 0.3s ease;
 }
 
-/* Flechas laterales fijas a los costados de la pantalla */
 .lightbox-btn {
   position: fixed;
   top: 50%;
@@ -319,19 +313,15 @@ footer {
   border-color: white;
   transform: translateY(-50%) scale(1.08);
 }
-#lightboxPrev {
-  left: 1.5rem;
-}
-#lightboxNext {
-  right: 1.5rem;
-}
+#lightboxPrev { left: 1.5rem; }
+#lightboxNext { right: 1.5rem; }
 
-/* Contador centrado abajo de la imagen */
 .lightbox-controls {
   display: flex;
   justify-content: center;
   margin-top: 1rem;
 }
+
 .lightbox-counter {
   color: rgba(255,255,255,0.65);
   font-size: 0.9rem;
@@ -342,7 +332,6 @@ footer {
   letter-spacing: 0.05em;
 }
 
-/* Botón cerrar */
 .lightbox-close {
   position: fixed;
   top: 1.2rem;
@@ -368,6 +357,138 @@ footer {
   border-color: white;
 }
 
-.property-card img {
-  cursor: zoom-in;
+/* ================================
+   RESPONSIVE
+================================ */
+
+/* Tablet — 768px */
+@media (max-width: 768px) {
+
+  /* Nav hamburguesa */
+  .menu-toggle {
+    display: flex;
+  }
+
+  nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(255,255,255,0.98);
+    border-top: 1px solid #eee;
+    padding: 1.5rem 0;
+  }
+
+  nav.open {
+    display: block;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  /* Hero */
+  .hero {
+    height: 75vh;
+    min-height: 480px;
+    margin-top: 64px;
+  }
+
+  .hero-overlay {
+    padding-bottom: 3rem;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  .price {
+    font-size: 2rem;
+  }
+
+  .btn {
+    padding: 0.85rem 2rem;
+    font-size: 0.95rem;
+  }
+
+  /* Secciones */
+  .section {
+    padding: 4rem 0;
+  }
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Grids — una columna */
+  .properties-grid,
+  .trust-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* Contacto */
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  /* Lightbox */
+  .lightbox-img {
+    max-width: 95vw;
+    max-height: 70vh;
+  }
+
+  .lightbox-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 1.3rem;
+  }
+
+  #lightboxPrev { left: 0.5rem; }
+  #lightboxNext { right: 0.5rem; }
+}
+
+/* Mobile chico — 480px */
+@media (max-width: 480px) {
+
+  .logo {
+    font-size: 1.4rem;
+  }
+
+  .hero {
+    height: 65vh;
+    min-height: 400px;
+  }
+
+  .hero-content h1 {
+    font-size: 1.6rem;
+  }
+
+  .price {
+    font-size: 1.6rem;
+  }
+
+  h2 {
+    font-size: 1.7rem;
+  }
+
+  .info h3 {
+    font-size: 1.3rem;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 16px; /* evita zoom automático en iOS */
+  }
+
+  .section {
+    padding: 3rem 0;
+  }
 }
