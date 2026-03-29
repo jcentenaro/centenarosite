@@ -330,16 +330,16 @@ No dejes pasar la oportunidad de vivir en un departamento de calidad con todos l
       <div class="cc-form">
         <div class="cc-form-title">Consultar por esta propiedad en venta</div>
 
-        <input type="text"  class="cc-input" placeholder="Ingresar nombre">
-        <input type="email" class="cc-input" placeholder="Ingresar e-mail">
-        <input type="tel"   class="cc-input" placeholder="Teléfono (opcional)">
-        <textarea class="cc-input cc-textarea" placeholder="Hola, me interesa esta propiedad. ¿Podrían contactarme?"></textarea>
+        <input type="text" class="cc-input" name="nombre" placeholder="Ingresar nombre">
+        <input type="email" class="cc-input" name="email" placeholder="Ingresar e-mail">
+        <input type="tel" class="cc-input" name="telefono" placeholder="Teléfono (opcional)">
+        <textarea class="cc-input cc-textarea" name="mensaje" placeholder="Hola, me interesa esta propiedad. ¿Podrían contactarme?"></textarea>
 
         <label class="cc-check">
-          <input type="checkbox"> Soy asesor inmobiliario
+          <input type="checkbox" name="asesor"> Soy asesor inmobiliario
         </label>
 
-        <button class="btn-consultar">Enviar consulta</button>
+        <button class="btn-consultar" type="submit">Enviar consulta</button>
 
         <a class="btn-whatsapp"
            href="https://wa.me/5491162836000?text=Hola%2C%20me%20interesa%20la%20casa"
@@ -564,6 +564,34 @@ document.querySelectorAll('.g-tab').forEach(tab => {
   <button onclick="document.getElementById('ctc-widget').style.display='none'"
     style="position:absolute; bottom:-20px; right:0; width:32px; height:32px; background:#25D366; border-radius:50%; border:none; cursor:pointer; color:#fff; font-size:16px; line-height:1;">✕</button>
 </div>
+<!--  EmailJS  -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+(function(){
+  emailjs.init("IZi_Ry-SQNnU_vC-g");
+})();
+</script>
+<!--  FIN EmailJS  -->
+
+<!-- Script para el formulario de contacto -->
+ <script>
+document.getElementById("form-contacto").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  emailjs.sendForm(
+    "service_n5k658m",
+    "template_a2h7h2i",
+    this
+  ).then(function() {
+    alert("Consulta enviada correctamente");
+  }, function(error) {
+    alert("Error al enviar: " + error.text);
+  });
+
+});
+</script>
+<!-- FIN Script para el formulario de contacto -->
 
 </body>
 </html>
