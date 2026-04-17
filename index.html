@@ -611,5 +611,26 @@ document.getElementById("form-contacto").addEventListener("submit", function(e) 
 </script>
 <!--  FIN EmailJS  -->
 
+<!-- Script emojis -->
+ <script>
+let intervalId; // para guardar el intervalo
+let toggle = false; // para alternar los mensajes
+
+document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible') {
+        // La pestaña está visible
+        clearInterval(intervalId); // detenemos el cambio
+        document.title = 'Tu Propio Ecommerce'; // restauramos título original
+    } else {
+        // La pestaña está oculta
+        intervalId = setInterval(() => {
+            document.title = toggle ? "🤩 Puede ser la casa de tus sueños" : "😢 ¿Por qué te fuiste?";
+            toggle = !toggle;
+        }, 2000); // cambia cada 1.5 segundos (ajusta el tiempo a gusto)
+    }
+});
+</script>
+<!-- FIN Script emojis -->
+
 </body>
 </html>
