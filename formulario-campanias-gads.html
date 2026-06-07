@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GURU TG — Creación de Campañas Google Ads</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #18181f;
+    --border: #2a2a38;
+    --accent: #4f8ef7;
+    --accent2: #a78bfa;
+    --accent-glow: rgba(79,142,247,0.18);
+    --text: #e8e8f0;
+    --text-muted: #7878a0;
+    --success: #34d399;
+    --error: #f87171;
+    --radius: 12px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 20px 80px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Background blobs */
+  body::before, body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::before {
+    width: 500px; height: 500px;
+    background: rgba(79,142,247,0.07);
+    top: -100px; left: -150px;
+  }
+  body::after {
+    width: 400px; height: 400px;
+    background: rgba(167,139,250,0.06);
+    bottom: 0; right: -100px;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 680px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+    animation: fadeDown 0.6s ease both;
+  }
+  .badge {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-glow);
+    border: 1px solid rgba(79,142,247,0.3);
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 800;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #e8e8f0 0%, #a78bfa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  .subtitle {
+    color: var(--text-muted);
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* Webhook config block */
+  .webhook-config {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 32px;
+    animation: fadeDown 0.6s 0.1s ease both;
+  }
+  .webhook-config label {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 10px;
+  }
+  .webhook-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .webhook-row input {
+    flex: 1;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .webhook-row input:focus { border-color: var(--accent2); }
+  .webhook-row input::placeholder { color: var(--text-muted); }
+  .btn-save-webhook {
+    background: var(--accent2);
+    color: #0a0a0f;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+  }
+  .btn-save-webhook:hover { opacity: 0.85; }
+  .webhook-hint {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* Form card */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    animation: fadeUp 0.6s 0.15s ease both;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .form-body {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Field groups */
+  .field-group {
+    display: grid;
+    gap: 20px;
+    padding-bottom: 28px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+  .field-group:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+  /* Field */
+  .field { display: flex; flex-direction: column; gap: 8px; }
+  .field label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .field label .required {
+    color: var(--accent);
+    margin-left: 3px;
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+  }
+  .field input::placeholder,
+  .field textarea::placeholder { color: var(--text-muted); }
+  .field select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237878a0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px; }
+  .field textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+  .field .hint {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+  select option { background: #18181f; }
+
+  /* Submit */
+  .submit-area {
+    padding: 24px 28px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn-submit {
+    flex: 1;
+    min-width: 200px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    border: none;
+    padding: 15px 32px;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+  .btn-submit:hover { opacity: 0.92; transform: translateY(-1px); }
+  .btn-submit:active { transform: translateY(0); }
+  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .btn-submit .btn-text { transition: opacity 0.2s; }
+  .btn-submit .btn-loader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .btn-submit.loading .btn-text { opacity: 0; }
+  .btn-submit.loading .btn-loader { opacity: 1; }
+
+  .spinner {
+    width: 20px; height: 20px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    padding: 14px 24px;
+    border-radius: 100px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 100;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.success { border-color: var(--success); }
+  .toast.error { border-color: var(--error); }
+  .toast-icon { font-size: 16px; }
+
+  @keyframes fadeDown { from { opacity:0; transform:translateY(-16px); } to { opacity:1; transform:none; } }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media (max-width: 540px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .form-body { padding: 20px; }
+    .submit-area { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="badge">GURU TG</div>
+    <h1>Creación de Campañas<br>Google Ads</h1>
+    <p class="subtitle">Completá los datos para generar la campaña automáticamente a través de n8n.</p>
+  </div>
+
+  <!-- Webhook URL config -->
+  <div class="webhook-config">
+    <label>⚙ URL del Webhook de n8n</label>
+    <div class="webhook-row">
+      <input type="url" id="webhookUrl" placeholder="https://tu-instancia.n8n.cloud/webhook/xxxxxxxx" />
+      <button class="btn-save-webhook" onclick="saveWebhook()">Guardar</button>
+    </div>
+    <p class="webhook-hint">Pegá la URL del nodo Webhook de tu workflow. Se guarda localmente en tu navegador.</p>
+  </div>
+
+  <!-- Main form -->
+  <div class="card">
+    <div class="section-header">
+      <div class="section-dot"></div>
+      <span class="section-title">Datos de la Campaña</span>
+    </div>
+
+    <div class="form-body" id="formBody">
+
+      <!-- Bloque 1: Identificación -->
+      <div class="field-group grid-2">
+        <div class="field" style="grid-column: 1 / -1;">
+          <label>URL / Sitio web <span class="required">*</span></label>
+          <input type="url" id="url" placeholder="https://www.tusitio.com" required />
+        </div>
+        <div class="field">
+          <label>ID de Campaña <span class="required">*</span></label>
+          <input type="text" id="id_campana" placeholder="Ej: 124260" required />
+        </div>
+        <div class="field">
+          <label>Nombre de Empresa</label>
+          <input type="text" id="nombre_empresa" placeholder="Ej: GURU TG" value="GURU TG" />
+        </div>
+      </div>
+
+      <!-- Bloque 2: Ubicación -->
+      <div class="field-group grid-2">
+        <div class="field">
+          <label>Ciudad <span class="required">*</span></label>
+          <input type="text" id="ciudad" placeholder="Ej: Ciudad de Panamá" required />
+        </div>
+        <div class="field">
+          <label>ID de Ubicación <span class="required">*</span></label>
+          <input type="text" id="id_ubicacion" placeholder="Ej: 9069897" required />
+          <span class="hint">ID de geolocalización de Google Ads</span>
+        </div>
+        <div class="field">
+          <label>País <span class="required">*</span></label>
+          <select id="pais" required>
+            <option value="" disabled selected>Seleccioná un país</option>
+            <option>Argentina</option>
+            <option>Chile</option>
+            <option>Colombia</option>
+            <option>Peru</option>
+            <option>Panama</option>
+            <option>El Salvador</option>
+            <option>Guatemala</option>
+            <option>Ecuador</option>
+            <option>Nicaragua</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Rubro <span class="required">*</span></label>
+          <input type="text" id="rubro" placeholder="Ej: Refrigeración" required />
+        </div>
+      </div>
+
+      <!-- Bloque 3: URL interna n8n -->
+      <div class="field-group">
+        <div class="field">
+          <label>URL Interna (path) <span class="required">*</span></label>
+          <input type="text" id="url_interna" placeholder="Ej: /507/1044/411001/6080" required />
+          <span class="hint">Path interno del directorio / ficha dentro de la plataforma.</span>
+        </div>
+      </div>
+
+      <!-- Bloque 4: Referencias del sitio -->
+      <div class="field-group">
+        <div class="field">
+          <label>Site Reference 1</label>
+          <input type="url" id="site_reference" placeholder="https://referencia-competencia.com (opcional)" />
+        </div>
+        <div class="field">
+          <label>Site Reference 2</label>
+          <input type="url" id="site_reference2" placeholder="https://... (opcional)" />
+        </div>
+        <div class="field">
+          <label>Site Reference 3</label>
+          <input type="url" id="site_reference3" placeholder="https://... (opcional)" />
+        </div>
+      </div>
+
+      <!-- Bloque 5: Configuración IA -->
+      <div class="field-group grid-2">
+        <div class="field">
+          <label>Modelo de IA <span class="required">*</span></label>
+          <select id="modelo_elegido" required>
+            <option value="Gemini" selected>Gemini</option>
+            <option value="Anthropic">Anthropic</option>
+            <option value="Mistral">Mistral</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Tipo de Entidad</label>
+          <input type="text" id="tipo_entidad" placeholder="Opcional" />
+        </div>
+        <div class="field" style="grid-column: 1 / -1;">
+          <label>Contenido de Ficha / Productos y Servicios</label>
+          <textarea id="contenido_ficha" placeholder="Describí los productos y servicios que ofrece la empresa..."></textarea>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="submit-area">
+      <button class="btn-submit" id="btnSubmit" onclick="submitForm()">
+        <span class="btn-text">Crear Campaña →</span>
+        <span class="btn-loader"><span class="spinner"></span></span>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toastIcon"></span>
+  <span id="toastMsg"></span>
+</div>
+
+<script>
+  // Load saved webhook URL
+  const savedUrl = localStorage.getItem('n8n_webhook_url');
+  if (savedUrl) document.getElementById('webhookUrl').value = savedUrl;
+
+  function saveWebhook() {
+    const url = document.getElementById('webhookUrl').value.trim();
+    if (!url) return showToast('Ingresá una URL de webhook', 'error');
+    localStorage.setItem('n8n_webhook_url', url);
+    showToast('URL guardada correctamente', 'success');
+  }
+
+  async function submitForm() {
+    const webhookUrl = document.getElementById('webhookUrl').value.trim();
+    if (!webhookUrl) return showToast('Primero configurá la URL del webhook de n8n', 'error');
+
+    // Validate required fields
+    const requiredIds = ['url', 'id_campana', 'ciudad', 'id_ubicacion', 'pais', 'rubro', 'url_interna', 'modelo_elegido'];
+    for (const id of requiredIds) {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.focus();
+        el.style.borderColor = 'var(--error)';
+        setTimeout(() => el.style.borderColor = '', 2000);
+        showToast('Completá todos los campos obligatorios', 'error');
+        return;
+      }
+    }
+
+    const payload = {
+      url:              document.getElementById('url_interna').value.trim(),
+      ciudad:           document.getElementById('ciudad').value.trim(),
+      id_ubicacion:     document.getElementById('id_ubicacion').value.trim(),
+      rubro:            document.getElementById('rubro').value.trim(),
+      id_campaña:       document.getElementById('id_campana').value.trim(),
+      pais:             document.getElementById('pais').value,
+      nombre_empresa:   document.getElementById('nombre_empresa').value.trim() || 'GURU TG',
+      tipo_entidad:     document.getElementById('tipo_entidad').value.trim(),
+      modelo_elegido:   document.getElementById('modelo_elegido').value,
+      site_reference:   document.getElementById('site_reference').value.trim(),
+      site_reference2:  document.getElementById('site_reference2').value.trim(),
+      site_reference3:  document.getElementById('site_reference3').value.trim(),
+      contenido_ficha:  document.getElementById('contenido_ficha').value.trim(),
+      site_web:         document.getElementById('url').value.trim(),
+    };
+
+    const btn = document.getElementById('btnSubmit');
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        showToast('¡Campaña enviada correctamente!', 'success');
+        // Optional: reset form
+        // document.querySelectorAll('input:not(#webhookUrl), select, textarea').forEach(el => el.value = el.defaultValue || '');
+      } else {
+        showToast(`Error del servidor: ${res.status}`, 'error');
+      }
+    } catch (err) {
+      showToast('No se pudo conectar con n8n. Verificá la URL.', 'error');
+    } finally {
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    }
+  }
+
+  function showToast(msg, type = 'info') {
+    const toast = document.getElementById('toast');
+    const icon = document.getElementById('toastIcon');
+    const text = document.getElementById('toastMsg');
+    icon.textContent = type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ';
+    text.textContent = msg;
+    toast.className = `toast ${type} show`;
+    setTimeout(() => toast.classList.remove('show'), 3500);
+  }
+</script>
+</body>
+</html>
