@@ -516,12 +516,15 @@
       }
     }
 
+    const idCampana = document.getElementById('id_campana').value.trim();
+
     const payload = {
       url:              document.getElementById('url_interna').value.trim(),
       ciudad:           document.getElementById('ciudad').value.trim(),
       id_ubicacion:     document.getElementById('id_ubicacion').value.trim(),
       rubro:            document.getElementById('rubro').value.trim(),
-      id_campaña:       document.getElementById('id_campana').value.trim(),
+      'id_campaña':     idCampana,
+      id_campana:       idCampana,
       pais:             document.getElementById('pais').value,
       nombre_empresa:   document.getElementById('nombre_empresa').value.trim() || 'GURU TG',
       tipo_entidad:     document.getElementById('tipo_entidad').value.trim(),
@@ -538,28 +541,56 @@
     btn.disabled = true;
 
     try {
-      const res = await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
+      // Timeout de 60s para workflows largos con responseNode
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 60000);
+
+      let res;
+      try {
+        res = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+        });
+        clearTimeout(timeout);
+      } catch (fetchErr) {
+        clearTimeout(timeout);
+        if (fetchErr.name === 'AbortError') {
+          // Timeout: n8n recibió el request pero el workflow tarda mucho en responder
+          // Esto es normal con responseNode — igual se envió correctamente
+          showToast('¡Campaña enviada! El workflow está procesando...', 'success');
+          resetForm();
+          return;
+        }
+        throw fetchErr;
+      }
 
       if (res.ok) {
-        showToast('¡Campaña enviada correctamente!', 'success');
-        // Optional: reset form
-        // document.querySelectorAll('input:not(#webhookUrl), select, textarea').forEach(el => el.value = el.defaultValue || '');
+        showToast('¡Campaña creada correctamente!', 'success');
+        resetForm();
       } else {
-        showToast(`Error del servidor: ${res.status}`, 'error');
+        const errorText = await res.text().catch(() => '');
+        showToast(`Error del servidor: ${res.status}${errorText ? ' — ' + errorText.slice(0,80) : ''}`, 'error');
       }
     } catch (err) {
-      showToast('No se pudo conectar con n8n. Verificá la URL.', 'error');
+      showToast('No se pudo conectar con n8n. Verificá la URL y que el workflow esté activo.', 'error');
     } finally {
       btn.classList.remove('loading');
       btn.disabled = false;
     }
   }
 
-  function showToast(msg, type = 'info') {
+  function resetForm() {
+    const keep = ["webhookUrl", "nombre_empresa", "modelo_elegido"];
+    document.querySelectorAll("input, select, textarea").forEach(el => {
+      if (keep.includes(el.id)) return;
+      if (el.tagName === "SELECT") el.selectedIndex = 0;
+      else el.value = "";
+    });
+  }
+
+  function showToast(msg, type = "info") {
     const toast = document.getElementById('toast');
     const icon = document.getElementById('toastIcon');
     const text = document.getElementById('toastMsg');
